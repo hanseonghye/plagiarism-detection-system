@@ -32,12 +32,15 @@ def upload():
     if not os.path.isdir(target):
         os.mkdir(target)
 
-    for file in request.files.getlist("file"):
-        print(file)
-        filename = file.filename
-        destination = "/".join([target, filename])
-        print(destination)
-        file.save(destination)
+    if 'file' not in request.files:
+        return render_template('complete.html')
+
+    file=request.files['file']
+    print(file)
+    filename = file.filename
+    destination = "/".join([target, filename])
+    print(destination)
+    file.save(destination)
 
     if filename.endswith(".zip") != True :
             return render_template('complete.html')
@@ -65,6 +68,23 @@ def show_code():
     file2=open(path_file2,'r')
 
     return render_template('show_code.html', File1_name=file1_name+"\n",File2_name=file2_name+"\n",File1=file1.read(), File2=file2.read())
+
+@app.route("/show_strange_code", methods=['GET'])
+def show_strange_code():
+    strange_name= request.args.get('strange_code')
+
+    path_file=DIRE+strange_name
+    strange_file=open(path_file,'r')
+    return render_template('show_one_code.html', File_name=strange_name+"\n", File=strange_file.read())
+
+@app.route("/show_short_code", methods=['GET'])
+def show_short_code():
+    short_name= request.args.get('short_code')
+
+    path_file=DIRE+short_name
+    short_file=open(path_file,'r')
+    return render_template('show_one_code.html', File_name=short_name+"\n", File=short_file.read())
+
 
 
 def pro(dir_name):

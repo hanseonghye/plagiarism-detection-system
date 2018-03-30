@@ -24,16 +24,21 @@
 	<p style="font-size:16px; color:blue; display: inline-block;" > STRANGE CODE &nbsp;: </P>
 
 		{% for num in er %}
-			<p style="font-size:15; display: inline-block;"> {{num}} &nbsp;&nbsp;&nbsp;</p>
+			<form id="strange_code" action="{{ url_for('show_strange_code') }}" method = "GET">
+				<input style="font-size:15; display: inline-block; background: #ffffff; board: 0px;" type="submit" name="strange_code" value= {{num}} &nbsp;>
 		{% endfor %}
 	<br>
 
 
-	<p style="font-size:16px; color:blue; display: inline-block;" > SHORT CODE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </P>
+	
+		<form id="short_code" action="{{ url_for('show_short_code') }}" method = "GET">	
+		<p style="font-size:16px; color:blue; display: inline-block;" > SHORT CODE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </P>
 		{% for num in short %}
-			<p style="font-size:15; display: inline-block;"> {{num}} &nbsp;</p>
+			
+				<input style="font-size:15; display: inline-block; background: #ffffff; border: 0px;" type="submit" name="short_code" value= {{num}} &nbsp;>
+			
 		{% endfor %}
-
+		</form>
 	<hr>
 
 	<table class= "re_table">

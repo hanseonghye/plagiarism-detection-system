@@ -36,7 +36,7 @@ def get_result(test_dir):
 
     for i in seq_name_pairs:
         token_count=i[0].count('#');
-        if token_count < 30  :
+        if token_count < 35  :
             if token_count <10 :
                 error_dna.append(i[1])
             else :
