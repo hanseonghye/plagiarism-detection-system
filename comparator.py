@@ -1,8 +1,7 @@
 import itertools
 import os
 import subprocess
-import networkx as nx
-import matplotlib.pyplot as plt
+
 
 
 def match_score_local(a,b):
