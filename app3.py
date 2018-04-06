@@ -18,7 +18,7 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 json_data=""
 DIRE=""
-
+startTime=0
 
 @app.route("/")
 def index():
@@ -26,6 +26,9 @@ def index():
 
 @app.route("/upload", methods=['POST'])
 def upload():
+    global startTime
+    startTime=time.time()
+
     target = os.path.join(APP_ROOT, 'images/')
     print(target)
 
@@ -48,8 +51,11 @@ def upload():
 
     global json_data
     (result, json_data, error_dna, short_dna, good_dna)=pro(filename)
-  
-    return render_template('complete.html',pr=result, er=error_dna, short=short_dna)
+    
+    endTime=time.time()-startTime
+    endTime=format(endTime,".3f")
+
+    return render_template('complete.html',pr=result,good=good_dna, er=error_dna, short=short_dna, Time=endTime)
 
 
 @app.route("/complete", methods=['POST'])
@@ -85,7 +91,12 @@ def show_short_code():
     short_file=open(path_file,'r')
     return render_template('show_one_code.html', File_name=short_name+"\n", File=short_file.read())
 
-
+@app.route("/show_good_code", methods=['GET'])
+def show_good_code():
+    good_name=request.args.get('good_code')
+    path_file=DIRE+good_name
+    good_file=open(path_file,'r')
+    return render_template('show_one_code.html', File_name=good_name+"\n", File=good_file.read())
 
 def pro(dir_name):
     T_dir=dir_name
@@ -102,4 +113,5 @@ def pro(dir_name):
 if __name__ == "__main__":
     app.run(port=3570, debug=True)
     
+
 

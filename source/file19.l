@@ -59,7 +59,7 @@ void define_fun(char* s)						//define function
 	strcat(fun_name,"{");
 	strcat(str,fun_name);
 	
-	printf("%-30s",str); printf("\n"); count=0; 
+	printf("%s  ",str); printf("\n"); count=0; 
 }
 
 
@@ -96,7 +96,7 @@ void define_fun2(char* s)						//define function
 	strcat(fun_name,"{");
 	strcat(str,fun_name);
 	
-	printf("%-33s",str); printf("\n"); count=0; 
+	printf("%s  ",str); printf("\n"); count=0; 
 }
 
 void print_fun(char* s)						//call function
@@ -106,12 +106,12 @@ void print_fun(char* s)						//call function
 
 		fun_name=strtok(fun_name,"(");		
 		strcat(str,fun_name); 
-		count_print(); printf("%33s",str); 
+		count_print(); printf("%s  ",str); 
 	}
 }
 
 void my_print(char* str)			
-{ if(fun_start==1 || macro_start==1) {count_print(); printf("%33s",str);}  }
+{ if(fun_start==1 || macro_start==1) {count_print(); printf("%s  ",str);}  }
 
 void count_print(){
 	if(count==PRINT_ENTER) { count=0; printf("\n"); }
@@ -135,7 +135,7 @@ MACRO_FUN		"#define"[" "\t]*[a-zA-Z_]+[0-9]*\(([" "]*|([" "a-zA-Z0-9]+([," "\t]+
 stl			("<"[<>a-zA-Z0-9_" ",]+">")*
 stl2			("<"[<>a-zA-Z0-9_" ",]+">")
 const			const|register
-para			(({const}|[" "]+)*([a-zA-Z_0-9\*&" "]+{stl2}[" "\n\t\r\*&]*[\(\)a-zA-Z_0-9\*&\[\]]+)|([a-zA-Z_0-9\*&]+[" "]+[\n\t\r\*&]*[\(\)a-zA-Z_0-9\*&\[\]]+)|([a-zA-Z_0-9\*&]+[\n\t\r\*&]*[\(]+[\(\)a-zA-Z_0-9\*&\[\]]+))
+para			({const}|[" "]+)*(([a-zA-Z_0-9\*&" "]+{stl2}[" "\n\t\r\*&]*[\(\)a-zA-Z_0-9\*&\[\]]+)|([a-zA-Z_0-9\*&]+[" "]+[\n\t\r\*&]*[\(\)a-zA-Z_0-9\*&\[\]]+)|([a-zA-Z_0-9\*&]+[\n\t\r\*&]*[\(]+[\(\)a-zA-Z_0-9\*&\[\]]+))|([" "]*"..."[" "]*)|([a-zA-Z_0-9\*&]+[" "]+[\n\t\r\*&]*[" "]*[\*]+[" "]*[\(\)a-zA-Z_0-9&\[\]]+)
 parameter		[" "]*|[" "]*"void"[" "]*|{para}([" ",\n\t\r]+{para}+)*[" "\n\t\r]*
 
 call_fun 		[a-zA-Z_]+[a-zA-Z_0-9]*[" "\n\t\r]*\({parameter}\)
@@ -270,7 +270,6 @@ SWITCH			"switch"[" "\t]*\(
 
 {call_fun2}		{ print_fun(yytext);  }			//call function
 
-{String}		{ my_print("#S"); }
 {digit}			{ my_print("#N");  }
 {type}			{ my_print("#TYPE");  }
 
