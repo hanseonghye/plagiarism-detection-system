@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<link rel="shortcut icon" href="">
+		<meta charset="UTF-8">
+		<title>Code Plagiarism Checker</title>
+
+	</head>
+
+	<style>
+		body{
+			text-align: center;
+			top: 50%;
+	   		margin-top: 280px;
+		}
+
+
+	</style>
+
+	<body>
+
+		<h1>Code Plagiarism Checker v0.7b</h1>
+
+		<form id="upload-form" action="{{ url_for('upload') }}" method ="POST" enctype="multipart/form-data">
+			<input type="file" name="file" >
+			<input type="submit" value="submit">
+		<span style="color:#C0C0C0"><p> import only zip file</p> </span>
+
+
+		</form>
+	</body>
+
+</html>
