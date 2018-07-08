@@ -1,12 +1,10 @@
-﻿<!DOCTYPE html>
-
+<!DOCTYPE HTML >
 <html lang="en">
 
 	<head>
 		<link rel="shortcut icon" href="">
 		<meta charset="UTF-8">
 		<title>걸리면 F</title>
-		
 
 	</head>
 
@@ -56,8 +54,6 @@
 		.body2{
 			text-align: center;
 		}
-		
-		
 
 
 	</style>
@@ -65,7 +61,7 @@
 	<body>
 	
 		<div class="body1">
-			<img src="/static/image/logo.png">
+			<img src="/static/image/logo.png" style="width:300px; height:auto;">
 			<br>
 			<h1 style="color:teal;">IF caught, then F &nbsp; v1.7b</h1>
 			
@@ -76,17 +72,16 @@
 			</form>
 		</div>
 
-
-		<br><br><br>
-		
-		<hr style="border:solid 1px gray;">
-		<br>
-
 		<div class="body2">
-			<input type="button" value="'걸리면 F'란" >
-			<input type="button" value="사용법" >
-			<input type="button" value="개발자 정보" >
+			{% with messages = get_flashed_messages() %}
+			{%if messages %}
+			{% for message in messages %}
+				<p>{{message}}</p>
+			{% endfor %}
+			{% endif %}
+			{% endwith %}
 		</div>
+
 
 
 	</body>

@@ -5,7 +5,7 @@ import time
 import json
 import glob
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 import plagiarism 
 import sys  
 
@@ -13,6 +13,7 @@ reload(sys)
 sys.setdefaultencoding('Cp1252')
 
 app = Flask(__name__)
+app.secret_key="2342asfkjawesld234kfjsld123111"
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -35,9 +36,10 @@ def upload():
     if not os.path.isdir(target):
         os.mkdir(target)
 
-    if 'file' not in request.files:
-        return render_template('complete.html')
 
+    if 'file' not in request.files:
+    	flash('input file !')
+        return render_template("upload.html")
     file=request.files['file']
     print(file)
     filename = file.filename
@@ -45,15 +47,19 @@ def upload():
     print(destination)
     file.save(destination)
 
-    if filename.endswith(".zip") != True :
-            return render_template('complete.html')
 
+    if filename.endswith(".zip") != True :
+    	flash('input only zip file !')
+        return render_template("upload.html")
 
     global json_data
     (result, json_data, error_dna, short_dna, good_dna)=pro(filename)
     
     endTime=time.time()-startTime
     endTime=format(endTime,".3f")
+
+    flash('okoko')
+
 
     return render_template('complete.html',pr=result,good=good_dna, er=error_dna, short=short_dna, Time=endTime)
 

@@ -8,7 +8,7 @@ import math
 LEX = 0
 ASM = 1
 
-REGEX = re.compile('.*[.](c|cpp)$')
+REGEX = re.compile('.*[.](c|cpp|java)$')
 def is_cppsrc(srcname):
     return (REGEX.match(srcname) != None)
 
@@ -43,13 +43,22 @@ def get_result(test_dir):
                 short_dna.append(i[1])
             continue
 
+        # good_dna.append(i[1])
+        # str1=i[0]
+        # str1=re.sub('#ID','',i[0])
+        # mother_score[i[1]]=comparator.match_score_local(str1,str1)
+        # name_map[i[1]]=count
+        # re_node={"name":name_map[i[1]]}
+        # count=count+1
+        # nodes_array.append(re_node)
+        # seq_name_pairs2.append(i)
+
         good_dna.append(i[1])
         str1=i[0]
         str1=re.sub('#ID','',i[0])
         mother_score[i[1]]=comparator.match_score_local(str1,str1)
-        name_map[i[1]]=count
+        name_map[i[1]]=i[1]
         re_node={"name":name_map[i[1]]}
-        count=count+1
         nodes_array.append(re_node)
         seq_name_pairs2.append(i)
 
@@ -87,13 +96,18 @@ def get_result(test_dir):
 
         len_a = a[0].count('#')
         len_b = b[0].count('#')
-        re_link={"source":name_map[name_a],"target":name_map[name_b],"weight":1}
+        re_link={"source":name_map[name_a],"target":name_map[name_b],"weight":str_score}
         links_array.append(re_link)
         result_st.append(re_score(count,name_a,len_a,name_b,len_b,score) )   
         count=count+1    
 
     result["nodes"]=nodes_array
     result["links"]=links_array
+
+    with open('example.json','w') as make_file:
+        json.dump(result,make_file,indent=2)
+
+
     
 
     print('plotting result.')

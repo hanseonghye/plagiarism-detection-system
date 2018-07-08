@@ -12,7 +12,12 @@ def match_score_local(a,b):
 
 def get_sequence_from(filename):
     #print('get sequence from ' + filename + '...')
-    ps = subprocess.Popen(('./source/lex_pro', filename), stdout=subprocess.PIPE)
+    if filename.endswith(".java") != True :
+    	ps = subprocess.Popen(('./source/lex_C', filename), stdout=subprocess.PIPE)
+
+    else :
+    	ps = subprocess.Popen(('./source/lex_JAVA', filename), stdout=subprocess.PIPE)
+    	
     string = subprocess.check_output(('./source/re_pro'), stdin=ps.stdout)
     ps.wait()
     return string
